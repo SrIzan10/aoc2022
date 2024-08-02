@@ -1,4 +1,4 @@
-# advent of code 2022
+# advent of code 2022 (moved to [main repo](https://github.com/SrIzan10/adventofcode))
 
 probably my first python "project"
 
