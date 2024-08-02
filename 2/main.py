@@ -14,7 +14,7 @@ playerInv = {
     2: 'B',
     3: 'C'
 }
-oponentInv = {
+opponentInv = {
     1: 'X',
     2: 'Y',
     3: 'Z'
@@ -29,24 +29,24 @@ def part1(input=input,isPart2=False):
             i = i.replace(pointsKey, str(p[pointsKey]))
         i = i.split()
 
-        oponent = int(i[0])
+        opponent = int(i[0])
         player = int(i[1])
 
         if isPart2:
-            oponent = int(i[1])
+            opponent = int(i[1])
             player = int(i[0])
 
-        winner = rockpaperscissors(oponent, player)
+        winner = rockpaperscissors(opponent, player)
         finalPoints = 0
         match winner:
             case 'player':
                 finalPoints = player + 6
             case 'tie':
                 finalPoints = player + 3
-            case 'oponent':
+            case 'opponent':
                 finalPoints = player
 
-        results.append({ 'oponent': oponent, 'player': player, 'winner': winner, 'finalPoints': finalPoints })
+        results.append({ 'opponent': opponent, 'player': player, 'winner': winner, 'finalPoints': finalPoints })
     
     for r in results:
         sum += r['finalPoints']
@@ -61,45 +61,45 @@ def part2():
     sum = 0
     simInput = []
 
-    # left hand is the player, right hand is the oponent
+    # left hand is the player, right hand is the opponent
     for r in results:
         player = r['player']
-        oponent = r['oponent']
+        opponent = r['opponent']
         # inverted values for better treatment
         player = playerInv[player]
-        oponent = oponentInv[oponent]
+        opponent = opponentInv[opponent]
         
-        if oponent == 'X':
+        if opponent == 'X':
             player = loss[player]
-        elif oponent == 'Y':
+        elif opponent == 'Y':
             player = player
-        elif oponent == 'Z':
+        elif opponent == 'Z':
             player = wins[player]
 
-        simInput.append(f"{player} {oponent}")
+        simInput.append(f"{player} {opponent}")
     
     calc = part1(simInput, True)
     return calc['sum']
 
-def rockpaperscissors(oponent, player):
-    oponent = int(oponent)
+def rockpaperscissors(opponent, player):
+    opponent = int(opponent)
     player = int(player)
-    if oponent == player:
+    if opponent == player:
         return "tie"
-    elif oponent == 1 and player == 2:
+    elif opponent == 1 and player == 2:
         return "player"
-    elif oponent == 2 and player == 1:
-        return "oponent"
-    elif oponent == 1 and player == 3:
-        return "oponent"
-    elif oponent == 3 and player == 1:
+    elif opponent == 2 and player == 1:
+        return "opponent"
+    elif opponent == 1 and player == 3:
+        return "opponent"
+    elif opponent == 3 and player == 1:
         return "player"
-    elif oponent == 2 and player == 3:
+    elif opponent == 2 and player == 3:
         return "player"
-    elif oponent == 3 and player == 2:
-        return "oponent"
+    elif opponent == 3 and player == 2:
+        return "opponent"
     else:
-        raise ValueError("Make sure oponent and player have right numbers.")
+        raise ValueError("Make sure opponent and player have right numbers.")
 
 print('Part1:', part1()['sum'])
 print('Part2:', part2())
